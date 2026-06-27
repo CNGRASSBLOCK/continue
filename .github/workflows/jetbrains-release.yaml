@@ -32,6 +32,24 @@ jobs:
         with:
           gradle-home-cache-cleanup: true
 
+      - name: Install core node_modules
+        run: |
+          cd ../../core
+          npm ci
+      
+      - name: Install gui node_modules and build
+        run: |
+          cd ../../gui
+          npm ci
+          npm run build
+      
+      - name: Run prepackage script
+        run: |
+          cd ../../extensions/vscode
+          npm ci
+          npm run prepackage
+
+
       - name: Install binary node_modules
         run: |
           cd ../../binary

@@ -177,6 +177,8 @@ jobs:
         run: |
           cd ../../core
           npm ci
+        env:
+          npm_config_ripgrep_skipDownload: true
 
       # npm install gui
       - name: Install gui node_modules and build

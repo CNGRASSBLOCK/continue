@@ -169,6 +169,9 @@ jobs:
       - name: Build packages (Unix)
         run: cd ../.. && node ./scripts/build-packages.js
 
+      - name: Skip ripgrep download
+        run: npm config set @vscode/ripgrep:skipDownload true
+
       # npm install core
       - name: Install core node_modules
         run: |

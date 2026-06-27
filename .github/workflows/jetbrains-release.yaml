@@ -32,6 +32,16 @@ jobs:
         with:
           gradle-home-cache-cleanup: true
 
+      - name: Install binary node_modules
+        run: |
+          cd ../../binary
+          npm ci
+      
+      - name: Build binaries
+        run: |
+          cd ../../binary
+          npm run build
+
       # 构建插件
       - name: Build Plugin
         run: ./gradlew buildPlugin --info --stacktrace

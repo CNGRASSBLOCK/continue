@@ -32,35 +32,45 @@ jobs:
         with:
           gradle-home-cache-cleanup: true
 
+      # 安装根目录依赖，解决 @continuedev/* 模块缺失
+      - name: Install root node_modules
+        run: |
+          cd ../..
+          npm ci
+
+      # 安装 core 依赖
       - name: Install core node_modules
         run: |
           cd ../../core
           npm ci
       
+      # 安装 gui 并构建前端 bundle
       - name: Install gui node_modules and build
         run: |
           cd ../../gui
           npm ci
           npm run build
       
+      # VSCode prepackage（binary 构建依赖）
       - name: Run prepackage script
         run: |
           cd ../../extensions/vscode
           npm ci
           npm run prepackage
 
-
+      # 安装 binary 依赖
       - name: Install binary node_modules
         run: |
           cd ../../binary
           npm ci
       
+      # 构建 binary，生成 continue-binary.exe
       - name: Build binaries
         run: |
           cd ../../binary
           npm run build
 
-      # 构建插件
+      # 构建 IntelliJ 插件
       - name: Build Plugin
         run: ./gradlew buildPlugin --info --stacktrace
 
